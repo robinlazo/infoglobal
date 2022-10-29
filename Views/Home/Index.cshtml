@@ -1,0 +1,43 @@
+﻿@model CountryListViewModel
+@{
+    ViewData["Continent"] = Model.CurrentContinent.Capitalize();
+    IndexRouteDictionary Current = Model.CurrentRoute;
+    IndexRouteDictionary Routes = Model.CurrentRoute.Clone();
+}
+
+
+<div class="row">
+    
+    <partial name="_SearchBarPartial" model="@Model.SearchModel"/>
+
+    <div class="btn-group" role="group" arial-label="Button group">
+        @foreach(var continent in Model.Continents.Keys) {
+            Routes.Continent = continent;
+            <a asp-all-route-data="@Routes" asp-action="Index"
+            class="btn btn-outline-primary @Model.CheckActiveContinent(continent)">@Model.Continents[continent]</a>
+        }
+        
+    <partial name="_OrderByPartial" model="@Current">
+
+    </div>
+    <div class="country-list-color">
+        <ul>
+            @foreach(var country in Model.Countries) {
+                <li class="list-inline-item mt-4">
+                    <a asp-action="Details" asp-route-id="@country.CountryID">
+                        <img title="@country.Name" src="~/images/@country.ImageFlag" alt="@country.Name flag"/>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@{
+    Routes = Model.CurrentRoute.Clone();
+    for(int i = 1; i <= Model.TotalPages; i++) {
+        Routes.PageNumber = i;
+        <a class="btn btn-outline-primary @Nav.Active(i, Current.PageNumber)" asp-all-route-data="@Routes" asp-action="Index">@i</a>
+    }
+
+}

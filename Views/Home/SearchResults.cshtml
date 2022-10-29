@@ -1,0 +1,27 @@
+@model SearchViewModel 
+@{
+    ViewData["Continent"] = "Searched";
+}
+
+<div class="row">
+    <div class="col">
+        <h1 class="mb-2">@Model.Header</h1>
+    </div>
+</div>
+
+<table class="table table-striped table-bordered">
+    <tbody>
+        @foreach(var country in Model.Countries) {
+            <tr>
+                <td>
+                    <img src="~/images/@country.ImageFlag" alt="@country.Name" />
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@country.CountryID">
+                        @country.Name
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

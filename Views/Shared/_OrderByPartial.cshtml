@@ -1,0 +1,10 @@
+@model IndexRouteDictionary
+
+@{
+    IndexRouteDictionary routes = Model.Clone();
+}
+
+@{routes.SetSortAndField(nameof(Country.Name), Model);}
+<a asp-action="Index" class="btn btn-info ms-2" asp-all-route-data="@routes">Name <i class="fas fa-sort"></i></a>
+@{routes.SetSortAndField(nameof(Country.Population), Model);}
+<a asp-action="Index" class="btn btn-info" asp-all-route-data="@routes">Population <i class="fas fa-sort"></i></a>

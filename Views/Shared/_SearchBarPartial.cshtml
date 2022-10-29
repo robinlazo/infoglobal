@@ -1,0 +1,7 @@
+@model SearchViewModel
+<div class="search-container">
+    <form asp-action="Search" class="search-component" method="POST">
+        <button type="submit" class="submit-search"><i class="fas fa-search"></i></button>
+        <input type="text" asp-for="SearchTerm" placeholder="search for countries" class="search-input">
+    </form>
+</div>
